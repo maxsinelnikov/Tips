@@ -1,0 +1,13 @@
+Настройка подключения томов:
+
+	- для Windows требуется подключение общей папки в VirtualBox
+	  и задание web-пути: /c/workdir путь к папке C:\workdir ,
+	  выбрать 'Авто-подключение' и 'Создать постоянную папку'
+
+	- после этого можно указывать путь в Dockerfile или *.yml вида:
+	  /c/workdir/app:/dir/in/container
+	  $PWD/app:/dir/in/container  если *.yml находится в C:\workdir
+
+
+
+docker-machine --help модуль взаимодействия Docker c Windows

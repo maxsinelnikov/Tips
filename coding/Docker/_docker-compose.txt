@@ -1,0 +1,79 @@
+Расширение файла *.yaml или *.yml
+!!! Отступы только пробелами. !!!
+------------------------------------------------------------------------
+Комманды CLI docker-compose:
+
+docker-compose -v		# версия docker-compose
+
+cd /c/work_folder		# выбор рабочей папки
+
+docker-machine ip default	# ip-адрес виртуальной машины c Docker
+
+docker-compose up		# запустить проект из *.yml файла
+				  нужно находиться в каталоге с файлом
+				--build  если с пересборкой
+
+docker-compose -d		# запуск контейнеров в фоне
+
+docker-compose ps		# список запущенных контейнеров
+
+docker-compose buld		# пересборка проекта без запуска
+
+docker-compose rm NAME		# удаление контейнера по имени
+
+docker-compose exec NAME bash	# подключение к контейнеру NAME
+
+------------------------------------------------------------------------
+# Структура docker-compose файла:
+
+version: '3.7'			# версия файла
+
+services:			# список контейнеров
+
+  db:				# имя сервиса NAME
+
+    image: IMAGE		# имя образа
+  или
+    build: ./db			# либо использовать Dockerfile
+				  путь к файлу из папки с *.yml
+
+    restart: always		# перезагрузка при ошибке
+				  no, on-failure, always
+
+    env_file:
+      - ./Docker/api/api.env
+
+    environment:		# список переменных окружения
+				  идентичен docker run -e
+      MYSQL_ROOT_PASS: pass	# переменная окружения
+
+    ports:			# список портов
+
+      - "8080:80"		# проброс портов - "HOST:CONTAINER"
+
+    volumes:			# использование томов
+
+      - /host/dir:/cont/dir	# проброс папки
+
+      - $PWD:/container/dir	# проброс текущей папки
+
+      - $(APP_HOST):$(APP_CONT)	# переменные взяты из .env
+
+    working_dir: $(APP_CONT)	# рабочая директория в контейнере
+
+    command: COMMAND		# комманда из-под working_dir
+
+
+========================================================================
+Структура файла со списком переменных .env
+
+# Comments. View: ENV_VAR=VALUE
+
+
+DB_PATH_HOST=./db		# переменная пути к базе данных   
+
+APP_HOST=./path
+
+APP_CONT=./path
+
+

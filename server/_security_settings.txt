@@ -1,0 +1,43 @@
+1. Смена SSH порта.
+ - Открываем файл настроек:  
+	sudo nano /etc/ssh/sshd_config
+ - Раскомментируем и меняем Port
+ - Перезапускаем ssh-сервер:  
+	sudo service ssh restart
+
+2. Отключение учетной записи root методом удаления пароля.
+ - Проверяем наличие еще одной записи с правами sudo 
+	id login
+ - Удаляем пароль от root:
+	sudo passwd -l root
+
+3. Настраиваем вход в систему по ключу RSA и отключаем вход по паролю.
+ - Зайти под настраеваемым пользователем(можно по SSH)
+ - Сгенерировать ключ:
+	ssh-keygen -t rsa -b 4096
+ - Проверим, созданы ли файлы: 
+	cd ~/.ssh
+	ls -al
+ - Установим права на папку и файлы:
+	sudo chmod 0700 ~/.ssh/
+	sudo chmod 0600 ~/.ssh/id*
+ - Ключ id_rsa передается клиент. После чего удаляется с сервера:
+	sudo rm /home/UserName/.ssh/id_rsa
+ - Далее 
+   https://a-rm.ru/materials/unix-servera/ustanovka-i-nastroyka-ssh-ubuntu
+ - Убедиться в отсутствии ошибки: server refused our key
+ - Отключить аунтификацию по паролю
+
+
+
+
+
+
+
+
+
+
+
+
+
+

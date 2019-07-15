@@ -1,0 +1,5 @@
+WSGI              - интерфейс для маршрутизации запросов от веб-серверов
+----------------- (Apache, Nginx и т.д.) на веб-приложения.
+
+Browser -> Server(nginx) -> WSGI -> Application(Django)
+
